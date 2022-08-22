@@ -1,4 +1,4 @@
-Thank you for your purchase <3 I hope you have fun with this script and that it brings jobs and RP to your server
+I hope you have fun with this script and that it brings jobs and RP to your server
 
 If you need support I now have a discord available, it helps me keep track of issues and give better support.
 
