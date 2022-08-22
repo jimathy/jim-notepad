@@ -13,6 +13,8 @@ Simple notepad script
 - qb-input - for the note making
 
 
+https://streamable.com/pt3e0n
+
 ## Install
 
 ```lua
