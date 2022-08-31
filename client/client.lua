@@ -19,7 +19,7 @@ RegisterNetEvent("jim-notepad:Client:SyncNotes", function(newNotes)
 			Props[k] = makeProp({prop = `prop_amanda_note_01b`, coords = vector4(v.coords.x, v.coords.y, v.coords.z+0.07, v.coords.w)}, 1, 0)
 			Targets[k] =
 				exports['qb-target']:AddCircleZone(k, vector3(v.coords.x, v.coords.y, v.coords.z-1.1), 0.5, { name=k, debugPoly=Config.Debug, useZ=true, },
-				{ options = { { type = "server", event = "jim-notepad:Server:ReadNote", icon = "fas fa-receipt", label = "Read Note", noteid = k, }, },
+				{ options = { { type = "server", event = "jim-notepad:Server:ReadNote", icon = "fas fa-receipt", label = Loc[Config.Lan].targetinfo["read"], noteid = k, }, },
 						distance = 1.5 })
 		end
 	end
@@ -29,9 +29,9 @@ end)
 RegisterNetEvent("jim-notepad:Client:CreateNote", function()
 	TriggerEvent('animations:client:EmoteCommandStart', {"notepad"})
 	local dialog = exports['qb-input']:ShowInput({
-        header = "Make a note",
+        header = Loc[Config.Lan].menu["make_a_note"],
         submitText = "Drop",
-        inputs = { { text = "Enter your message here", name = "note", type = "text", isRequired = true, }, },
+        inputs = { { text = Loc[Config.Lan].text["enter_message"], name = "note", type = "text", isRequired = true, }, },
     })
     if dialog.note ~= nil then
 		local c = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0.6, 0.0)
@@ -51,9 +51,9 @@ end)
 
 RegisterNetEvent("jim-notepad:Client:ReadNote", function(data)
 	local notepad = {}
-	notepad[#notepad+1] = { icon = "fas fa-receipt", isMenuHeader = true, header = "Message:", text = data.message }
-	notepad[#notepad+1] = { icon = "fas fa-person", isMenuHeader = true, header = "", text = "Written By: "..data.creator }
-	notepad[#notepad+1] = { icon = "fas fa-hand-scissors", header = "", text = "Tear up note", params = { event = "jim-notepad:Client:DestroyNote", args = data } }
+	notepad[#notepad+1] = { icon = "fas fa-receipt", isMenuHeader = true, header = Loc[Config.Lan].menu["message"], text = data.message }
+	notepad[#notepad+1] = { icon = "fas fa-person", isMenuHeader = true, header = "", text = Loc[Config.Lan].menu["written_by"]..data.creator }
+	notepad[#notepad+1] = { icon = "fas fa-hand-scissors", header = "", text = Loc[Config.Lan].menu["tear_up_note"], params = { event = "jim-notepad:Client:DestroyNote", args = data } }
 	exports["qb-menu"]:openMenu(notepad)
 end)
 
