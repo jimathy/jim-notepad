@@ -41,6 +41,12 @@ function destroyProp(entity)
 	DeleteObject(entity)
 end
 
+function toBool(string)
+	if string == "true" then string = true
+	elseif string == "false" then string = false end
+	return string
+end
+
 function makeProp(data, freeze, synced)
     loadModel(data.prop)
     local prop = CreateObject(data.prop, data.coords.x, data.coords.y, data.coords.z-1.03, synced or 0, synced or 0, 0)

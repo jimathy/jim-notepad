@@ -31,7 +31,15 @@ RegisterNetEvent("jim-notepad:Client:CreateNote", function()
 	local dialog = exports['qb-input']:ShowInput({
         header = Loc[Config.Lan].menu["make_a_note"],
         submitText = "Drop",
-        inputs = { { text = Loc[Config.Lan].text["enter_message"], name = "note", type = "text", isRequired = true, }, },
+        inputs = {
+			{ text = Loc[Config.Lan].text["enter_message"], name = "note", type = "text", isRequired = true, },
+			{ text = "", name = "checkbox", type = "checkbox",
+				options = {
+					{ value = "isImage", text = "Image" },
+					{ value = "isAnon", text = "Anonymous" },
+				},
+			},
+		},
     })
     if dialog.note ~= nil then
 		local c = GetOffsetFromEntityInWorldCoords(PlayerPedId(), 0.0, 0.6, 0.0)
@@ -39,12 +47,13 @@ RegisterNetEvent("jim-notepad:Client:CreateNote", function()
 		TaskPlayAnim(PlayerPedId(), "pickup_object", "pickup_low", 8.0, -8.0, -1, 0, 0, false, false, false)
 		TriggerEvent('animations:client:EmoteCommandStart', {"c"})
 		unloadAnimDict("pickup_object")
+		if toBool(dialog.isImage) then dialog.image = "<img src='"..dialog.note.."' width=200px>" end
 		Wait(900)
         TriggerServerEvent("jim-notepad:Server:CreateNote", {
 			coords = vector4(c.x, c.y, c.z, GetEntityHeading(PlayerPedId())),
-			creator = "Jimmy",
 			message = dialog.note,
-			time = "timetest"
+			anon = dialog.isAnon,
+			image = dialog.image or nil,
 		})
     end
 end)

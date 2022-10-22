@@ -2,6 +2,32 @@ local QBCore = exports['qb-core']:GetCoreObject()
 RegisterNetEvent('QBCore:Server:UpdateObject', function() if source ~= '' then return false end	QBCore = exports['qb-core']:GetCoreObject() end)
 
 local Notes = {}
+
+discord = {
+    ['webhook'] = "",
+    ['name'] = 'Notepad',
+    ['image'] = "https://i.imgur.com/G3jeSZv.png"
+}
+
+function DiscordLog(name, message, color)
+    local embed = {
+        {
+            ["color"] = 04255,
+            ["title"] = "**Note Dropped:**",
+            ["description"] = message,
+            ["url"] = "",
+            ["footer"] = {
+            ["text"] = "Dropped by: "..name,
+            ["icon_url"] = ""
+        },
+            ["thumbnail"] = {
+                ["url"] = "",
+            },
+		}
+	}
+    PerformHttpRequest(discord['webhook'], function(err, text, headers) end, 'POST', json.encode({username = discord['name'], embeds = embed, avatar_url = discord['image']}), { ['Content-Type'] = 'application/json' })
+end
+
 QBCore.Functions.CreateUseableItem("notepad", function(source, item) TriggerClientEvent("jim-notepad:Client:CreateNote", source) end)
 
 QBCore.Functions.CreateCallback('jim-notepad:Server:SyncNotes', function(source, cb) cb(Notes) end)
@@ -14,12 +40,20 @@ RegisterNetEvent("jim-notepad:Server:CreateNote", function(data)
 	}
 	local GeneratedID = ""
 	for i = 1, 12 do GeneratedID = GeneratedID..charset[math.random(1, #charset)] end
+
+	local creator = QBCore.Functions.GetPlayer(source).PlayerData.charinfo.firstname..' '..QBCore.Functions.GetPlayer(source).PlayerData.charinfo.lastname
+
+	DiscordLog(creator, data.message, 14177041)
+
+	if data.anon == true then creator = "Anonymous" end
+
 	Notes[GeneratedID] = {
 		id = GeneratedID,
 		coords = data.coords,
-		creator = QBCore.Functions.GetPlayer(source).PlayerData.charinfo.firstname..' '..QBCore.Functions.GetPlayer(source).PlayerData.charinfo.lastname,
-		message = data.message,
+		message = data.image or data.message,
+		creator = creator,
 	}
+
 	TriggerClientEvent("jim-notepad:Client:SyncNotes", -1, Notes)
 end)
 
