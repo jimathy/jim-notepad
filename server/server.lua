@@ -45,7 +45,8 @@ RegisterNetEvent("jim-notepad:Server:CreateNote", function(data)
 
 	DiscordLog(creator, data.message, 14177041)
 
-	if data.anon == true then creator = "Anonymous" end
+	if data.anon == 'true' then 
+	creator = "Anonymous" end
 
 	Notes[GeneratedID] = {
 		id = GeneratedID,
