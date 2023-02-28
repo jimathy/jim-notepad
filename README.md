@@ -12,11 +12,13 @@ Simple notepad script
 - qb-target - for the third eye selection
 - qb-input - for the note making
 
+## Optional
+- ox_lib - Context Menu support
 
 https://streamable.com/pt3e0n
 
 ## Install
 
 ```lua
-	["notepad"]    		= {["name"] = "notepad",    		["label"] = "Notepad",			["weight"] = 100,  ["type"] = "item",  ["image"] = "notepad.png",		["useable"] = 1,    ["shouldClose"] = 1,["description"] = ""},
+	["notepad"]		= {["name"] = "notepad",	["label"] = "Notepad",	["weight"] = 100,	["type"] = "item",	["image"] = "notepad.png",	['unique'] = true,	['useable'] = false,	['shouldClose'] = true,	['combinable'] = nil,   ['description'] = ""},
 ```
