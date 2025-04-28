@@ -1,14 +1,12 @@
-Loc = Loc or {}
-
 Loc["da"] = {
     error = {
-
+    
     },
     success = {
-
+    
     },
     info = {
-
+        
     },
     targetinfo = {
         ["read"] = "Læs memo",
@@ -23,10 +21,10 @@ Loc["da"] = {
         ["tear_up_note"] = "Riv memo itu",
     },
     commands = {
-
+    
     },
     progressbar = {
-
+    
     },
     warning = {},
 }
