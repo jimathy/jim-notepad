@@ -1,12 +1,14 @@
+Loc = Loc or {}
+
 Loc["cn"] = {
     error = {
-    
+
     },
     success = {
-    
+
     },
     info = {
-        
+
     },
     targetinfo = {
         ["read"] = "阅读纸条",
@@ -21,10 +23,10 @@ Loc["cn"] = {
         ["tear_up_note"] = "撕下纸条",
     },
     commands = {
-    
+
     },
     progressbar = {
-    
+
     },
     warning = {},
 }

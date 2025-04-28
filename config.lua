@@ -1,10 +1,15 @@
-print("^2Jim-Notepad ^7v^41^7.^41 ^7- ^2Notepad Script by ^1Jimathy^7")
-
 Config = {
-	Debug = false, -- enable debug mode
 	Lan = "en", -- Pick your language here
 
-	Menu = "qb",
-}
+	System = {
+		Debug = false, -- enable debug mode
 
-Loc = {}
+		Menu = "ox",
+	},
+
+	General = {
+		usableItem = true,		-- if true, players can use the "notepad" item to create notes
+		command = true,		-- if ture, players can type /notepad to
+
+	},
+}
