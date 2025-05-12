@@ -1,25 +1,29 @@
 local cachedNotes = {}
 
-if Config.General.command then
-	registerCommand("notepad", {
-		"Make a note",
-		{}, false,
-		function(source, args)
+onResourceStart(function()
+
+	if Config.General.command then
+		registerCommand("notepad", {
+			"Make a note",
+			{}, false,
+			function(source, args)
+				TriggerClientEvent("jim-notepad:Client:CreateNote", source)
+			end,
+			nil,
+		})
+	end
+
+	if Config.General.usableItem then
+		createUseableItem("notepad", function(source, item)
 			TriggerClientEvent("jim-notepad:Client:CreateNote", source)
-		end,
-		nil,
-	})
-end
+		end)
+	end
 
-if Config.General.usableItem then
-	createUseableItem("notepad", function(source, item)
-		TriggerClientEvent("jim-notepad:Client:CreateNote", source)
+	createCallback('jim-notepad:Server:SyncNotes', function(source)
+		return cachedNotes
 	end)
-end
 
-createCallback('jim-notepad:Server:SyncNotes', function(source)
-	return cachedNotes
-end)
+end, true)
 
 RegisterNetEvent("jim-notepad:Server:CreateNote", function(data)
 	local GeneratedID = keyGen()..keyGen()
